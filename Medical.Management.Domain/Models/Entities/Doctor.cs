@@ -13,6 +13,6 @@ namespace Medical.Management.Domain.Models.Entities
 
         [Column(TypeName = "char(10)")][Required][LengthAttribute(10, 10)] public string CrmRegistration { get; private set; } = crmRegistration;
 
-        public List<Service> Services { get; private set; } = default!;
+        public List<ServiceDoctor> Services { get; private set; } = default!;
     }
 }

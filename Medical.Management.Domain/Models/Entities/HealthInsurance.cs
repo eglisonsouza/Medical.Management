@@ -3,11 +3,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Medical.Management.Domain.Models.Entities
 {
-    public class HealthInsurance : BaseEntity
+    public class HealthInsurance(string name) : BaseEntity
     {
         [Column]
         [Required]
         [LengthAttribute(1, 30)]
-        public string Name { get; private set; }
+        public string Name { get; private set; } = name;
     }
 }

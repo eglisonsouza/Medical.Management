@@ -10,7 +10,7 @@ namespace Medical.Management.Infra.Persistence.Configurations
         public DbSet<HealthInsurance> HealthInsurances { get; set; }
         public DbSet<Patient> Patients { get; set; }
         public DbSet<People> Peoples { get; set; }
-        public DbSet<Service> Services { get; set; }
+        public DbSet<ServiceDoctor> Services { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

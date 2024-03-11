@@ -32,7 +32,7 @@ namespace Medical.Management.Infra.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Coutry")
+                    b.Property<string>("Country")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -238,8 +238,7 @@ namespace Medical.Management.Infra.Migrations
 
             modelBuilder.Entity("Medical.Management.Domain.Models.Entities.People", b =>
                 {
-                    b.Navigation("Address")
-                        .IsRequired();
+                    b.Navigation("Address");
                 });
 #pragma warning restore 612, 618
         }

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Medical.Management.Infra.Migrations
 {
     [DbContext(typeof(SqlServerDbContext))]
-    [Migration("20240308145239_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20240308181908_IntialMigration")]
+    partial class IntialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -35,7 +35,7 @@ namespace Medical.Management.Infra.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Coutry")
+                    b.Property<string>("Country")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -241,8 +241,7 @@ namespace Medical.Management.Infra.Migrations
 
             modelBuilder.Entity("Medical.Management.Domain.Models.Entities.People", b =>
                 {
-                    b.Navigation("Address")
-                        .IsRequired();
+                    b.Navigation("Address");
                 });
 #pragma warning restore 612, 618
         }

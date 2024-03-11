@@ -2,7 +2,9 @@ using Medical.Management.IoC;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddInfra(builder.Configuration);
+builder.Services
+    .AddInfra(builder.Configuration)
+    .AddApplication();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

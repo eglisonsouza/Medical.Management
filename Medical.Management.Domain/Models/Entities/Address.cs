@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Medical.Management.Domain.Models.Entities
 {
-    public class Address : BaseEntity
+    public sealed class Address : BaseEntity
     {
         [Column]
         [Required]
@@ -24,11 +24,21 @@ namespace Medical.Management.Domain.Models.Entities
         [Column]
         [Required]
         [LengthAttribute(1, 30)]
-        public string Coutry { get; private set; }
+        public string Country { get; private set; }
         [Column]
         [Required]
         public Guid PeopleId { get; private set; }
 
         public People People { get; private set; }
+
+        public Address(string street, string number, string city, string zone, string country, Guid peopleId)
+        {
+            Street = street;
+            Number = number;
+            City = city;
+            Zone = zone;
+            Country = country;
+            PeopleId = peopleId;
+        }
     }
 }

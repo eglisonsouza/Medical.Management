@@ -49,6 +49,6 @@ namespace Medical.Management.Application.Services
             _dbContext.HealthInsurances
                .Where(p => p.Id.Equals(id))
                .ExecuteDeleteAsync();
-        }        
+        }
     }
 }

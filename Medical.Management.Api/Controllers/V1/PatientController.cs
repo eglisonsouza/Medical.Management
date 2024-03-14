@@ -1,10 +1,12 @@
 ﻿using Medical.Management.Domain.Arguments.InputModels;
 using Medical.Management.Domain.Service;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Medical.Management.Api.Controllers.V1
 {
     [ApiController]
+    [Authorize]
     [Route("api/v1/people/patient")]
     public class PatientController(IPatientService service) : ControllerBase
     {
@@ -16,7 +18,7 @@ namespace Medical.Management.Api.Controllers.V1
             return Ok(await _service.AddAsync(model));
         }
 
-        [HttpGet]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetAsync(Guid id)
         {
             return Ok(await _service.GetAsync(id));

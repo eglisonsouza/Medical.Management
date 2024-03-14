@@ -1,10 +1,12 @@
 ﻿using Medical.Management.Domain.Arguments.InputModels;
 using Medical.Management.Domain.Service;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Medical.Management.Api.Controllers.V1
 {
     [ApiController]
+    [Authorize]
     [Route("api/v1/health-insurance")]
     public class HealthInsuranceController(IHealthInsuranceService service) : ControllerBase
     {

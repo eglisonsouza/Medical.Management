@@ -1,7 +1,7 @@
 ﻿using Medical.Management.Domain.Models.Entities;
 using Medical.Management.Domain.Models.Enums;
 
-namespace Medical.Management.Domain.Arguments.InputModels
+namespace Medical.Management.Application.Models.InputModels
 {
     public class PeopleInputModel
     {

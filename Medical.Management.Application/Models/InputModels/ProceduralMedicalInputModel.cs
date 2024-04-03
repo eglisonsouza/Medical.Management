@@ -1,8 +1,8 @@
 ﻿using Medical.Management.Domain.Models.Entities;
 
-namespace Medical.Management.Domain.Arguments.InputModels
+namespace Medical.Management.Application.Models.InputModels
 {
-    public class ServiceDoctorInputModel
+    public class ProceduralMedicalInputModel
     {
         public Guid DoctorId { get; set; }
         public string Name { get; set; }
@@ -10,9 +10,9 @@ namespace Medical.Management.Domain.Arguments.InputModels
         public decimal Value { get; set; }
         public int DurationInMinutes { get; set; }
 
-        public ServiceDoctor ToEntity()
+        public ProceduralMedical ToEntity()
         {
-            return new ServiceDoctor(Name, Description, Value, DurationInMinutes, DoctorId);
+            return new ProceduralMedical(Name, Description, Value, DurationInMinutes, DoctorId);
         }
     }
 }

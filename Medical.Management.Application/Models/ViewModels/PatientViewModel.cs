@@ -1,6 +1,6 @@
 ﻿using Medical.Management.Domain.Models.Entities;
 
-namespace Medical.Management.Domain.Arguments.ViewModels
+namespace Medical.Management.Application.Models.ViewModels
 {
     public class PatientViewModel
     {

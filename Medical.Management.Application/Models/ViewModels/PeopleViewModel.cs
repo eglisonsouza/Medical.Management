@@ -1,7 +1,7 @@
 ﻿using Medical.Management.Domain.Models.Entities;
 using Medical.Management.Domain.Models.Enums;
 
-namespace Medical.Management.Domain.Arguments.ViewModels;
+namespace Medical.Management.Application.Models.ViewModels;
 
 public class PeopleViewModel(Guid id, string name, string lastName, DateTime birthDate, string phone, string email, string cpf, BloodType bloodType)
 {

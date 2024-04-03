@@ -1,5 +1,5 @@
-﻿using Medical.Management.Domain.Arguments.InputModels;
-using Medical.Management.Domain.Service;
+﻿using Medical.Management.Application.Models.InputModels;
+using Medical.Management.Application.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,7 +8,7 @@ namespace Medical.Management.Api.Controllers.V1
     [ApiController]
     [Authorize]
     [Route("api/v1/health-insurance")]
-    public class HealthInsuranceController(IHealthInsuranceService service) : ControllerBase
+    public sealed class HealthInsuranceController(IHealthInsuranceService service) : ControllerBase
     {
         private readonly IHealthInsuranceService _service = service;
 
@@ -32,9 +32,9 @@ namespace Medical.Management.Api.Controllers.V1
 
 
         [HttpPut("{id}")]
-        public IActionResult Put(Guid id, HealthInsuranceInputModel model)
+        public async Task<IActionResult> Put(Guid id, HealthInsuranceInputModel model)
         {
-            _service.Update(model, id);
+            await _service.UpdateAsync(model, id);
             return NoContent();
         }
 

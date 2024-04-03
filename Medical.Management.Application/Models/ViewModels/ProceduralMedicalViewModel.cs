@@ -1,8 +1,8 @@
 ﻿using Medical.Management.Domain.Models.Entities;
 
-namespace Medical.Management.Domain.Arguments.ViewModels
+namespace Medical.Management.Application.Models.ViewModels
 {
-    public class ServiceDoctorViewModel
+    public class ProceduralMedicalViewModel
     {
         public Guid Id { get; set; }
         public Guid DoctorId { get; set; }
@@ -11,9 +11,9 @@ namespace Medical.Management.Domain.Arguments.ViewModels
         public decimal Value { get; set; }
         public int DurationInMinutes { get; set; }
 
-        public static ServiceDoctorViewModel FromEntity(ServiceDoctor entity)
+        public static ProceduralMedicalViewModel FromEntity(ProceduralMedical entity)
         {
-            return new ServiceDoctorViewModel
+            return new ProceduralMedicalViewModel
             {
                 Id = entity.Id,
                 DoctorId = entity.DoctorId,

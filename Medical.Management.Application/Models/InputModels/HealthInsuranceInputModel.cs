@@ -1,6 +1,6 @@
 ﻿using Medical.Management.Domain.Models.Entities;
 
-namespace Medical.Management.Domain.Arguments.InputModels
+namespace Medical.Management.Application.Models.InputModels
 {
     public class HealthInsuranceInputModel
     {

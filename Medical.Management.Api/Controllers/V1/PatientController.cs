@@ -1,5 +1,5 @@
-﻿using Medical.Management.Domain.Arguments.InputModels;
-using Medical.Management.Domain.Service;
+﻿using Medical.Management.Application.Models.InputModels;
+using Medical.Management.Application.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,7 +8,7 @@ namespace Medical.Management.Api.Controllers.V1
     [ApiController]
     [Authorize]
     [Route("api/v1/people/patient")]
-    public class PatientController(IPatientService service) : ControllerBase
+    public sealed class PatientController(IPatientService service) : ControllerBase
     {
         private readonly IPatientService _service = service;
 

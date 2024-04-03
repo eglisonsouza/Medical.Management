@@ -9,5 +9,10 @@ namespace Medical.Management.Domain.Models.Entities
         [Required]
         [LengthAttribute(1, 30)]
         public string Name { get; private set; } = name;
+
+        public void UpdateName(string name)
+        {
+            Name = name;
+        }
     }
 }

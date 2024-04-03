@@ -1,5 +1,5 @@
-﻿using Medical.Management.Application.Services;
-using Medical.Management.Domain.Service;
+﻿using Medical.Management.Application.Services.Implementations;
+using Medical.Management.Application.Services.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Medical.Management.IoC
@@ -10,7 +10,7 @@ namespace Medical.Management.IoC
         {
             services.AddScoped<IDoctorService, DoctorService>();
             services.AddScoped<IPatientService, PatientService>();
-            services.AddScoped<IServiceDoctorService, ServiceDoctorService>();
+            services.AddScoped<IProceduralMedicalService, ProceduralMedicalService>();
             services.AddScoped<IHealthInsuranceService, HealthInsuranceService>();
 
             return services;

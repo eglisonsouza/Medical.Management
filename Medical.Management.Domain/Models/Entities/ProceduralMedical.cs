@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Medical.Management.Domain.Models.Entities
 {
-    public sealed class ServiceDoctor(string name, string description, decimal value, int durationInMinutes, Guid doctorId) : BaseEntity
+    public sealed class ProceduralMedical(string name, string description, decimal value, int durationInMinutes, Guid doctorId) : BaseEntity
     {
         [Column]
         [Required]
@@ -24,6 +24,28 @@ namespace Medical.Management.Domain.Models.Entities
         [Required]
         public Guid DoctorId { get; private set; } = doctorId;
 
-        public Doctor Doctor { get; set; }
+        public ProceduralMedical UpdateDescription(string description)
+        {
+            Description = description;
+            return this;
+        }
+
+        public ProceduralMedical UpdateDurationInMinutes(int durationInMinutes)
+        {
+            DurationInMinutes = durationInMinutes;
+            return this;
+        }
+
+        public ProceduralMedical UpdateName(string name)
+        {
+            Name = name;
+            return this;
+        }
+
+        public ProceduralMedical UpdateValue(decimal value)
+        {
+            Value = value;
+            return this;
+        }
     }
 }

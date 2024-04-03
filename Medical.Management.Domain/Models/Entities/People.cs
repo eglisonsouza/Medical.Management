@@ -13,8 +13,47 @@ namespace Medical.Management.Domain.Models.Entities
         [Column][LengthAttribute(1, 100)] public string Email { get; private set; } = email;
         [Column][Required][LengthAttribute(11, 11)] public string Cpf { get; private set; } = cpf;
         [Column][Required] public BloodType BloodType { get; private set; } = bloodType;
-        public Address? Address { get; private set; }
 
+        public People UpdateBirthDate(DateTime birthDate)
+        {
+            BirthDate = birthDate;
+            return this;
+        }
 
+        public People UpdateBloodType(BloodType bloodType)
+        {
+            BloodType = bloodType;
+            return this;
+        }
+
+        public People UpdateCpf(string cpf)
+        {
+            Cpf = cpf;
+            return this;
+        }
+
+        public People UpdateEmail(string email)
+        {
+            Email = email;
+            return this;
+        }
+
+        public People UpdateLastName(string lastName)
+        {
+            LastName = lastName;
+            return this;
+        }
+
+        public People UpdateName(string name)
+        {
+            Name = name;
+            return this;
+        }
+
+        public People UpdatePhone(string phone)
+        {
+            Phone = phone;
+            return this;
+        }
     }
 }

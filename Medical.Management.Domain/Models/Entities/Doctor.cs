@@ -5,7 +5,7 @@ namespace Medical.Management.Domain.Models.Entities
 {
     public sealed class Doctor(Guid peopleId, string specialty, string crmRegistration) : BaseEntity
     {
-        public People People { get; private set; }
+        public People? People { get; set; }
 
         [Column][Required] public Guid PeopleId { get; private set; } = peopleId;
 
@@ -13,6 +13,18 @@ namespace Medical.Management.Domain.Models.Entities
 
         [Column(TypeName = "char(10)")][Required][LengthAttribute(10, 10)] public string CrmRegistration { get; private set; } = crmRegistration;
 
-        public List<ServiceDoctor> Services { get; private set; } = default!;
+        public List<ProceduralMedical> Services { get; private set; } = default!;
+
+        public Doctor UpdateCrmRegistration(string crmRegistration)
+        {
+            CrmRegistration = crmRegistration;
+            return this;
+        }
+
+        public Doctor UpdateSpecialty(string specialty)
+        {
+            Specialty = specialty;
+            return this;
+        }
     }
 }

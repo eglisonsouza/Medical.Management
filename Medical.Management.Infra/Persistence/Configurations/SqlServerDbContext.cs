@@ -1,16 +1,17 @@
 ﻿using Medical.Management.Domain.Models.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Medical.Management.Infra.Persistence.Configurations
 {
+    [ExcludeFromCodeCoverage]
     public class SqlServerDbContext(DbContextOptions<SqlServerDbContext> options) : DbContext(options)
     {
-        public DbSet<Address> Addresses { get; set; }
         public DbSet<Doctor> Doctors { get; set; }
         public DbSet<HealthInsurance> HealthInsurances { get; set; }
         public DbSet<Patient> Patients { get; set; }
         public DbSet<People> Peoples { get; set; }
-        public DbSet<ServiceDoctor> Services { get; set; }
+        public DbSet<ProceduralMedical> Services { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

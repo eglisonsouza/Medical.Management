@@ -1,20 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Medical.Management.Domain.Models.Entities
+﻿namespace Medical.Management.Domain.Models.Entities
 {
-    public class Patient(Guid peopleId, double height, double weight) : BaseEntity
+    public class Patient : BaseEntity
     {
         public People People { get; set; }
-        [Column]
-        [Required]
-        public Guid PeopleId { get; private set; } = peopleId;
-        [Column]
-        [Required]
-        public double Height { get; private set; } = height;
-        [Column]
-        [Required]
-        public double Weight { get; private set; } = weight;
+        public Guid PeopleId { get; set; }
+        public double Height { get; set; }
+        public double Weight { get; set; }
 
         public Patient UpdateHeight(double height)
         {

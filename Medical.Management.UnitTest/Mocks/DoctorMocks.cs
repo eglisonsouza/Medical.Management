@@ -28,7 +28,7 @@ namespace Medical.Management.UnitTest.Mocks
 
         public static Doctor GetDoctorEntity()
         {
-            return new Doctor(Guid.NewGuid(), "specialty", "crmRegistration") { People = PeopleMocks.GetPeopleEntity() };
+            return new Doctor() { People = PeopleMocks.GetPeopleEntity() };
         }
     }
 }

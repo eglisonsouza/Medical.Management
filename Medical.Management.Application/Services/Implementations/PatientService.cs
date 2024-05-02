@@ -12,11 +12,11 @@ namespace Medical.Management.Application.Services.Implementations
 
         public async Task<PatientViewModel> AddAsync(PatientInputModel model)
         {
-            var people = await _repository.AddAsync(model.People.ToEntity());
-            var patient = await _repository.AddAsync(model.ToEntity(people.Id));
+            //var people = await _repository.AddAsync(model.People.ToEntity());
+            //var patient = await _repository.AddAsync(model.ToEntity(people.Id));
             await _repository.SaveAsync();
-
-            return PatientViewModel.FromEntity(patient);
+            throw new NotImplementedException();
+            //return PatientViewModel.FromEntity(patient);
         }
 
         public async Task<PatientViewModel> GetAsync(Guid id)

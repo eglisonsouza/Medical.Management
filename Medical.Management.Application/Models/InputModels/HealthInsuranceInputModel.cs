@@ -8,7 +8,10 @@ namespace Medical.Management.Application.Models.InputModels
 
         public HealthInsurance ToEntity()
         {
-            return new HealthInsurance(Name);
+            return new HealthInsurance
+            {
+                Name = Name
+            };
         }
     }
 }

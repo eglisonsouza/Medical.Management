@@ -12,7 +12,14 @@ namespace Medical.Management.Application.Models.InputModels
 
         public ProceduralMedical ToEntity()
         {
-            return new ProceduralMedical(Name, Description, Value, DurationInMinutes, DoctorId);
+            return new ProceduralMedical
+            {
+                Name = Name,
+                Description = Description,
+                Value = Value,
+                DurationInMinutes = DurationInMinutes,
+                DoctorId = DoctorId
+            };
         }
     }
 }

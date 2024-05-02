@@ -1,5 +1,4 @@
-﻿using Medical.Management.Domain.Models.Entities;
-using Medical.Management.Domain.Models.Enums;
+﻿using Medical.Management.Domain.Models.Enums;
 
 namespace Medical.Management.Application.Models.InputModels
 {
@@ -13,9 +12,5 @@ namespace Medical.Management.Application.Models.InputModels
         public string Cpf { get; set; }
         public BloodType BloodType { get; set; }
 
-        public People ToEntity()
-        {
-            return new People(Name, LastName, BirthDate, Phone, Email, Cpf, BloodType);
-        }
     }
 }

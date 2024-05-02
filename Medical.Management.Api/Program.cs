@@ -1,4 +1,5 @@
-using Medical.Management.IoC;
+using Medical.Management.Application.Extensions;
+using Medical.Management.Infra.Extensions;
 using Smart.Essentials.Security.Jwt;
 
 var builder = WebApplication.CreateBuilder(args);

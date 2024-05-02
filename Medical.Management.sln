@@ -5,13 +5,13 @@ VisualStudioVersion = 17.10.34607.79
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Medical.Management.Api", "Medical.Management.Api\Medical.Management.Api.csproj", "{8C12C8E7-FA6C-45E8-B2E8-F181A1EE2338}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Medical.Management.Application", "Medical.Management.Application\Medical.Management.Application.csproj", "{2C2C4416-CAF5-409B-B03C-5386566E109D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Medical.Management.Application", "Medical.Management.Application\Medical.Management.Application.csproj", "{2C2C4416-CAF5-409B-B03C-5386566E109D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Medical.Management.Domain", "Medical.Management.Domain\Medical.Management.Domain.csproj", "{77D260FF-17AB-4555-9DDE-6E2680AB476C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Medical.Management.Domain", "Medical.Management.Domain\Medical.Management.Domain.csproj", "{77D260FF-17AB-4555-9DDE-6E2680AB476C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Medical.Management.Infra", "Medical.Management.Infra\Medical.Management.Infra.csproj", "{7F3EE94A-18C8-4C52-9CCC-666F5F76F234}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Medical.Management.Infra", "Medical.Management.Infra\Medical.Management.Infra.csproj", "{7F3EE94A-18C8-4C52-9CCC-666F5F76F234}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Medical.Management.UnitTests", "Medical.Management.UnitTests\Medical.Management.UnitTests.csproj", "{00EB5565-0235-43B6-9CA6-7C0F6F7DB556}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Medical.Management.UnitTest", "Medical.Management.UnitTest\Medical.Management.UnitTest.csproj", "{BA863077-547E-4738-9B17-A904DEEBBD07}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +35,10 @@ Global
 		{7F3EE94A-18C8-4C52-9CCC-666F5F76F234}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F3EE94A-18C8-4C52-9CCC-666F5F76F234}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7F3EE94A-18C8-4C52-9CCC-666F5F76F234}.Release|Any CPU.Build.0 = Release|Any CPU
-		{00EB5565-0235-43B6-9CA6-7C0F6F7DB556}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{00EB5565-0235-43B6-9CA6-7C0F6F7DB556}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{00EB5565-0235-43B6-9CA6-7C0F6F7DB556}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{00EB5565-0235-43B6-9CA6-7C0F6F7DB556}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA863077-547E-4738-9B17-A904DEEBBD07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA863077-547E-4738-9B17-A904DEEBBD07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA863077-547E-4738-9B17-A904DEEBBD07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA863077-547E-4738-9B17-A904DEEBBD07}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -7,7 +7,10 @@ namespace Medical.Management.UnitTest.Mocks
     {
         public static HealthInsurance GetHealthInsuranceEntity()
         {
-            return new HealthInsurance("Unimed");
+            return new HealthInsurance
+            {
+                Name = "Unimed"
+            };
         }
 
         public static HealthInsuranceInputModel GetHealthInsuranceInputModel()

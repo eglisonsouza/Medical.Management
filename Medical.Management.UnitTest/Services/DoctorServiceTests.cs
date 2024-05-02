@@ -1,4 +1,5 @@
-﻿using Medical.Management.Application.Models.ViewModels;
+﻿using AutoMapper;
+using Medical.Management.Application.Models.ViewModels;
 using Medical.Management.Application.Services.Implementations;
 using Medical.Management.Domain.Models.Entities;
 using Medical.Management.Domain.Models.Exceptions;
@@ -13,11 +14,13 @@ namespace Medical.Management.UnitTests.Services
     {
         private readonly IDoctorRepository _repository;
         private readonly DoctorService _service;
+        private readonly IMapper _mapper;
 
         public DoctorServiceTests()
         {
             _repository = Substitute.For<IDoctorRepository>();
-            _service = new DoctorService(_repository);
+            _mapper = Substitute.For<IMapper>();
+            _service = new DoctorService(_repository, _mapper);
         }
 
         [Fact]

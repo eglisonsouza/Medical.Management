@@ -20,7 +20,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\Building Blocks\Smart.Essentials.HealthCheck.SqlServer\Smart.Essentials.HealthCheck.SqlServer.csproj" />
     <ProjectReference Include="..\..\..\Building Blocks\Smart.Essentials.Security.Jwt\Smart.Essentials.Security.Jwt.csproj" />
-    <ProjectReference Include="..\Medical.Management.IoC\Medical.Management.IoC.csproj" />
+    <ProjectReference Include="..\Medical.Management.Application\Medical.Management.Application.csproj" />
   </ItemGroup>
 
 </Project>

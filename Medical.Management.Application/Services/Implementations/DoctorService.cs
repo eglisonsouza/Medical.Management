@@ -1,22 +1,23 @@
-﻿using Medical.Management.Application.Models.InputModels;
+﻿using AutoMapper;
+using Medical.Management.Application.Models.InputModels;
 using Medical.Management.Application.Models.ViewModels;
 using Medical.Management.Application.Services.Interfaces;
+using Medical.Management.Domain.Models.Entities;
 using Medical.Management.Domain.Models.Exceptions;
 using Medical.Management.Domain.Repositories;
 
 namespace Medical.Management.Application.Services.Implementations
 {
-    public class DoctorService(IDoctorRepository repository) : IDoctorService
+    public class DoctorService(IDoctorRepository repository, IMapper mapper) : IDoctorService
     {
         private readonly IDoctorRepository _repository = repository;
+        private readonly IMapper _mapper = mapper;
 
         public async Task<DoctorViewModel> AddAsync(DoctorInputModel model)
         {
-            var people = await _repository.AddAsync(model.People.ToEntity());
-            var doctor = await _repository.AddAsync(model.ToEntity(people.Id));
-            await _repository.SaveAsync();
+            var doctor = await _repository.AddAsync(_mapper.Map<Doctor>(model));
 
-            return DoctorViewModel.FromEntity(doctor);
+            return _mapper.Map<DoctorViewModel>(doctor);
         }
 
         public async Task<DoctorViewModel> GetAsync(Guid id)
@@ -24,7 +25,7 @@ namespace Medical.Management.Application.Services.Implementations
             var doctor = await _repository.GetAsync(id)
                 ?? throw new DoctorNotFoundException();
 
-            return DoctorViewModel.FromEntity(doctor);
+            return _mapper.Map<DoctorViewModel>(doctor);
         }
 
         public async Task UpdateAsync(DoctorInputModel model, Guid id)

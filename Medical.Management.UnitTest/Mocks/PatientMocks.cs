@@ -17,8 +17,11 @@ namespace Medical.Management.UnitTest.Mocks
 
         public static Patient GetPatientEntity()
         {
-            return new Patient(Guid.NewGuid(), 100, 10)
+            return new Patient
             {
+                PeopleId = Guid.NewGuid(),
+                Height = 100,
+                Weight = 10,
                 People = PeopleMocks.GetPeopleEntity()
             };
         }

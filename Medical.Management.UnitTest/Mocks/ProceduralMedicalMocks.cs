@@ -7,7 +7,14 @@ namespace Medical.Management.UnitTest.Mocks
     {
         public static ProceduralMedical GetProceduralMedicalEntity()
         {
-            return new ProceduralMedical("name", "description", 100, 89, Guid.NewGuid());
+            return new ProceduralMedical
+            {
+                Name = "name",
+                Description = "description",
+                Value = 100,
+                DurationInMinutes = 89,
+                DoctorId = Guid.NewGuid()
+            };
         }
 
         public static ProceduralMedicalInputModel GetProceduralMedicalInputModel()

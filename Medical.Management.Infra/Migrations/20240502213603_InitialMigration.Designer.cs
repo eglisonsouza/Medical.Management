@@ -12,55 +12,18 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Medical.Management.Infra.Migrations
 {
     [DbContext(typeof(SqlServerDbContext))]
-    [Migration("20240308181908_IntialMigration")]
-    partial class IntialMigration
+    [Migration("20240502213603_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.2")
+                .HasAnnotation("ProductVersion", "8.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("Medical.Management.Domain.Models.Entities.Address", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Country")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Number")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("PeopleId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Street")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Zone")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PeopleId")
-                        .IsUnique();
-
-                    b.ToTable("Addresses");
-                });
 
             modelBuilder.Entity("Medical.Management.Domain.Models.Entities.Doctor", b =>
                 {
@@ -70,7 +33,7 @@ namespace Medical.Management.Infra.Migrations
 
                     b.Property<string>("CrmRegistration")
                         .IsRequired()
-                        .HasColumnType("char(10)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("PeopleId")
                         .HasColumnType("uniqueidentifier");
@@ -81,7 +44,8 @@ namespace Medical.Management.Infra.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PeopleId");
+                    b.HasIndex("PeopleId")
+                        .IsUnique();
 
                     b.ToTable("Doctors");
                 });
@@ -94,7 +58,8 @@ namespace Medical.Management.Infra.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
 
                     b.HasKey("Id");
 
@@ -118,7 +83,8 @@ namespace Medical.Management.Infra.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PeopleId");
+                    b.HasIndex("PeopleId")
+                        .IsUnique();
 
                     b.ToTable("Patients");
                 });
@@ -137,7 +103,8 @@ namespace Medical.Management.Infra.Migrations
 
                     b.Property<string>("Cpf")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(11)
+                        .HasColumnType("nvarchar(11)");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -153,14 +120,15 @@ namespace Medical.Management.Infra.Migrations
 
                     b.Property<string>("Phone")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Peoples");
                 });
 
-            modelBuilder.Entity("Medical.Management.Domain.Models.Entities.Service", b =>
+            modelBuilder.Entity("Medical.Management.Domain.Models.Entities.ProceduralMedical", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -181,31 +149,20 @@ namespace Medical.Management.Infra.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Value")
-                        .HasColumnType("decimal(18, 4)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("DoctorId");
 
-                    b.ToTable("Services");
-                });
-
-            modelBuilder.Entity("Medical.Management.Domain.Models.Entities.Address", b =>
-                {
-                    b.HasOne("Medical.Management.Domain.Models.Entities.People", "People")
-                        .WithOne("Address")
-                        .HasForeignKey("Medical.Management.Domain.Models.Entities.Address", "PeopleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("People");
+                    b.ToTable("ProceduralMedicals");
                 });
 
             modelBuilder.Entity("Medical.Management.Domain.Models.Entities.Doctor", b =>
                 {
                     b.HasOne("Medical.Management.Domain.Models.Entities.People", "People")
-                        .WithMany()
-                        .HasForeignKey("PeopleId")
+                        .WithOne()
+                        .HasForeignKey("Medical.Management.Domain.Models.Entities.Doctor", "PeopleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -215,18 +172,18 @@ namespace Medical.Management.Infra.Migrations
             modelBuilder.Entity("Medical.Management.Domain.Models.Entities.Patient", b =>
                 {
                     b.HasOne("Medical.Management.Domain.Models.Entities.People", "People")
-                        .WithMany()
-                        .HasForeignKey("PeopleId")
+                        .WithOne()
+                        .HasForeignKey("Medical.Management.Domain.Models.Entities.Patient", "PeopleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("People");
                 });
 
-            modelBuilder.Entity("Medical.Management.Domain.Models.Entities.Service", b =>
+            modelBuilder.Entity("Medical.Management.Domain.Models.Entities.ProceduralMedical", b =>
                 {
                     b.HasOne("Medical.Management.Domain.Models.Entities.Doctor", "Doctor")
-                        .WithMany("Services")
+                        .WithMany("ProceduralMedicals")
                         .HasForeignKey("DoctorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -236,12 +193,7 @@ namespace Medical.Management.Infra.Migrations
 
             modelBuilder.Entity("Medical.Management.Domain.Models.Entities.Doctor", b =>
                 {
-                    b.Navigation("Services");
-                });
-
-            modelBuilder.Entity("Medical.Management.Domain.Models.Entities.People", b =>
-                {
-                    b.Navigation("Address");
+                    b.Navigation("ProceduralMedicals");
                 });
 #pragma warning restore 612, 618
         }

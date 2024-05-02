@@ -13,7 +13,7 @@ namespace Medical.Management.Infra.Persistence.Repositories
 
         public async Task<ProceduralMedical> AddAsync(ProceduralMedical entity)
         {
-            var result = await _dbContext.Services.AddAsync(entity);
+            var result = await _dbContext.ProceduralMedicals.AddAsync(entity);
             await _dbContext.SaveChangesAsync();
 
             return result.Entity;
@@ -21,23 +21,23 @@ namespace Medical.Management.Infra.Persistence.Repositories
 
         public async Task AddRangeAsync(List<ProceduralMedical> entities)
         {
-            await _dbContext.Services.AddRangeAsync(entities);
+            await _dbContext.ProceduralMedicals.AddRangeAsync(entities);
             await _dbContext.SaveChangesAsync();
         }
 
         public async Task<ProceduralMedical?> GetAsync(Guid id)
         {
-            return await _dbContext.Services.SingleOrDefaultAsync(d => d.Id.Equals(id));
+            return await _dbContext.ProceduralMedicals.SingleOrDefaultAsync(d => d.Id.Equals(id));
         }
 
         public async Task<List<ProceduralMedical>> GetByDoctorIdAsync(Guid doctorId)
         {
-            return await _dbContext.Services.Where(s => s.DoctorId.Equals(doctorId)).ToListAsync();
+            return await _dbContext.ProceduralMedicals.Where(s => s.DoctorId.Equals(doctorId)).ToListAsync();
         }
 
         public void Update(ProceduralMedical entity)
         {
-            _dbContext.Services
+            _dbContext.ProceduralMedicals
                .Where(p => p.Id.Equals(entity.Id))
                .ExecuteUpdate(
                 setters =>

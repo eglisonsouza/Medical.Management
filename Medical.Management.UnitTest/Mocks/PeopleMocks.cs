@@ -8,7 +8,15 @@ namespace Medical.Management.UnitTest.Mocks
     {
         public static People GetPeopleEntity()
         {
-            return new People("name", "lastName", DateTime.Now, "phone", "email", "cpf", BloodType.AbPositive);
+            return new People
+            {
+                BirthDate = DateTime.Now,
+                BloodType = BloodType.ANegative,
+                Cpf = "10239439485",
+                Email = "eglison.souza@gmail.com",
+                LastName = "Souza",
+                Name = "Eglison"
+            };
         }
 
         public static PeopleInputModel GetPeopleInputModel()

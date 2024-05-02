@@ -6,7 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Smart.Essentials.HealthCheck.SqlServer.DependencyInjection;
 
-namespace Medical.Management.IoC
+namespace Medical.Management.Infra.Extensions
 {
     public static class InfraExtensions
     {

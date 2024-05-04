@@ -1,6 +1,7 @@
 ﻿using Medical.Management.Application.Models.InputModels;
 using Medical.Management.Application.Models.ViewModels;
 using Medical.Management.Application.Services.Interfaces;
+using Medical.Management.Domain.Exceptions;
 using Medical.Management.Domain.Repositories;
 
 namespace Medical.Management.Application.Services.Implementations

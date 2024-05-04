@@ -10,13 +10,6 @@ namespace Medical.Management.Infra.Persistence.Repositories
     {
         private readonly SqlServerDbContext _dbContext = dbContext;
 
-        public async Task<People> AddAsync(People entity)
-        {
-            var result = await _dbContext.Peoples.AddAsync(entity);
-
-            return result.Entity;
-        }
-
         protected async Task UpdateAsync(People entity)
         {
             await _dbContext.Peoples

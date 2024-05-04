@@ -1,13 +1,13 @@
 ﻿using Medical.Management.Application.Models.InputModels;
-using Smart.Essentials.Core.ResultDataModel;
+using Medical.Management.Application.Models.ViewModels;
 
 namespace Medical.Management.Application.Services.Interfaces
 {
     public interface IHealthInsuranceService
     {
-        Task<ResultModel> AddAsync(HealthInsuranceInputModel model);
-        Task<ResultModel> GetAsync(Guid id);
-        ResultModel GetAll();
+        Task<HealthInsuranceViewModel> AddAsync(HealthInsuranceInputModel model);
+        Task<HealthInsuranceViewModel> GetAsync(Guid id);
+        IList<HealthInsuranceViewModel> GetAll();
         Task UpdateAsync(HealthInsuranceInputModel model, Guid id);
         void Remove(Guid id);
     }

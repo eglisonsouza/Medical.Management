@@ -2,6 +2,7 @@
 using Medical.Management.Application.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Smart.Essentials.Core.ResultDataModel;
 
 namespace Medical.Management.Api.Controllers.V1
 {
@@ -15,19 +16,20 @@ namespace Medical.Management.Api.Controllers.V1
         [HttpPost]
         public async Task<IActionResult> PostAsync(DoctorInputModel model)
         {
-            return Ok(await _service.AddAsync(model));
+            return Ok(ResultModel.WithSuccessfully((await _service.AddAsync(model))!));
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetAsync(Guid id)
         {
-            return Ok(await _service.GetAsync(id));
+            return Ok(ResultModel.WithSuccessfully((await _service.GetAsync(id))!));
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAsync(Guid id, DoctorInputModel model)
         {
-            return Ok(await _service.UpdateAsync(model, id));
+            await _service.UpdateAsync(model, id);
+            return Ok(ResultModel.WithSuccessfully());
         }
     }
 }

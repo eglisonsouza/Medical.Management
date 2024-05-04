@@ -11,14 +11,18 @@ namespace Medical.Management.Application.Extensions
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
             services.AddMapping();
+            services.AddScoped<NotificationContext>();
+            AddServices(services);
 
-            services.AddScoped<ResultModel>();
+            return services;
+        }
+
+        private static void AddServices(IServiceCollection services)
+        {
             services.AddScoped<IDoctorService, DoctorService>();
             services.AddScoped<IPatientService, PatientService>();
             services.AddScoped<IProceduralMedicalService, ProceduralMedicalService>();
             services.AddScoped<IHealthInsuranceService, HealthInsuranceService>();
-
-            return services;
         }
 
         private static void AddMapping(this IServiceCollection services)
@@ -28,6 +32,7 @@ namespace Medical.Management.Application.Extensions
                 cfg.AddProfile<DoctorMapping>();
                 cfg.AddProfile<PeopleMapping>();
                 cfg.AddProfile<HealthInsuranceMapping>();
+                cfg.AddProfile<PatientMapping>();
             });
         }
     }

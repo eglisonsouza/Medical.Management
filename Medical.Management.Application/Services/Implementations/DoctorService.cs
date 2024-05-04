@@ -8,45 +8,37 @@ using Smart.Essentials.Core.ResultDataModel;
 
 namespace Medical.Management.Application.Services.Implementations
 {
-    public class DoctorService(IDoctorRepository repository, IMapper mapper, ResultModel resultModel) : IDoctorService
+    public class DoctorService(IDoctorRepository repository, IMapper mapper, NotificationContext notification) : IDoctorService
     {
         private readonly IDoctorRepository _repository = repository;
         private readonly IMapper _mapper = mapper;
-        private readonly ResultModel _resultModel = resultModel;
+        private readonly NotificationContext _notificationContext = notification;
 
-        public async Task<ResultModel> AddAsync(DoctorInputModel model)
+        public async Task<DoctorViewModel?> AddAsync(DoctorInputModel model)
         {
             ValidateAsync(model);
 
+            if (_notificationContext.Errors.Any()) return null;
+
             var doctor = await _repository.AddAsync(_mapper.Map<Doctor>(model));
 
-            if (!_resultModel.Errors.Any())
-                _resultModel.AddResult(_mapper.Map<DoctorViewModel>(doctor));
-
-            return _resultModel;
+            return _mapper.Map<DoctorViewModel>(doctor);
         }
 
-        public async Task<ResultModel> GetAsync(Guid id)
+        public async Task<DoctorViewModel?> GetAsync(Guid id)
         {
             var doctor = await GetDoctor(id);
 
-            if (_resultModel.Errors.Any())
-            {
-                return _resultModel;
-            }
-
-            _resultModel.AddResult(_mapper.Map<DoctorViewModel>(doctor));
-
-            return _resultModel;
+            return _notificationContext.Errors.Any() ? null : _mapper.Map<DoctorViewModel>(doctor);
         }
 
-        public async Task<ResultModel> UpdateAsync(DoctorInputModel model, Guid id)
+        public async Task UpdateAsync(DoctorInputModel model, Guid id)
         {
             var doctor = await GetDoctor(id);
 
-            if (_resultModel.Errors.Any())
+            if (_notificationContext.Errors.Any())
             {
-                return _resultModel;
+                return;
             }
 
             doctor!
@@ -63,8 +55,6 @@ namespace Medical.Management.Application.Services.Implementations
                 .UpdateBloodType(model.People.BloodType);
 
             await _repository.UpdateAsync(doctor);
-
-            return ResultModel.WithSuccessfully();
         }
 
         private async Task<Doctor?> GetDoctor(Guid id)
@@ -73,7 +63,7 @@ namespace Medical.Management.Application.Services.Implementations
 
             if (doctor is null)
             {
-                _resultModel.AddError("Doctor not found.");
+                _notificationContext.AddError("Doctor not found.");
             }
 
             return doctor;
@@ -83,17 +73,17 @@ namespace Medical.Management.Application.Services.Implementations
         {
             if (model.People.Cpf.Length != 11)
             {
-                _resultModel.AddError("Cpf invalid.");
+                _notificationContext.AddError("Cpf invalid.");
             }
 
             if (_repository.CpfIsExist(model.People.Cpf))
             {
-                _resultModel.AddError("Cpf is exist.");
+                _notificationContext.AddError("Cpf is exist.");
             }
 
             if (!IsOfAge(model.People.BirthDate))
             {
-                _resultModel.AddError("People not legal age.");
+                _notificationContext.AddError("People not legal age.");
             }
         }
 

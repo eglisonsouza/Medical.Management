@@ -15,6 +15,8 @@ namespace Medical.Management.Infra.Persistence.Repositories
         {
             var result = await _dbContext.Patients.AddAsync(entity);
 
+            await SaveAsync();
+
             return result.Entity;
         }
 

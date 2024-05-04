@@ -2,45 +2,46 @@
 using Medical.Management.Application.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Smart.Essentials.Core.ResultDataModel;
 
 namespace Medical.Management.Api.Controllers.V1
 {
     [ApiController]
     [Authorize]
-    [Route("api/v1/doctor/service")]
-    public sealed class ServiceController(IProceduralMedicalService service) : ControllerBase
+    [Route("api/v1/doctor/procedural-medical")]
+    public sealed class ProceduralMedicalController(IProceduralMedicalService service) : ControllerBase
     {
         private readonly IProceduralMedicalService _service = service;
 
         [HttpPost]
         public async Task<IActionResult> PostAsync(ProceduralMedicalInputModel model)
         {
-            return Ok(await _service.AddAsync(model));
+            return Ok(ResultModel.WithSuccessfully(await _service.AddAsync(model)));
         }
 
         [HttpPost("add-range")]
         public async Task<IActionResult> PostAsync(List<ProceduralMedicalInputModel> model)
         {
-            return Ok(await _service.AddRangeAsync(model));
+            return Ok(ResultModel.WithSuccessfully(await _service.AddRangeAsync(model)));
         }
 
-        [HttpGet("id/procedural-medical/{id}")]
+        [HttpGet("id/{id}")]
         public async Task<IActionResult> GetAsync(Guid id)
         {
-            return Ok(await _service.GetAsync(id));
+            return Ok(ResultModel.WithSuccessfully(await _service.GetAsync(id)));
         }
 
-        [HttpGet("id/doctor/{doctorId}")]
+        [HttpGet("doctor/{doctorId}")]
         public async Task<IActionResult> GetByDoctorAsync(Guid doctorId)
         {
-            return Ok(await _service.GetByDoctorIdAsync(doctorId));
+            return Ok(ResultModel.WithSuccessfully(await _service.GetByDoctorIdAsync(doctorId)));
         }
 
         [HttpPut("{id}")]
         public IActionResult PutAsync(Guid id, ProceduralMedicalInputModel model)
         {
             _service.Update(model, id);
-            return NoContent();
+            return Ok(ResultModel.WithSuccessfully());
         }
     }
 }

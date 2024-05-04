@@ -2,43 +2,36 @@
 using Medical.Management.Application.Models.InputModels;
 using Medical.Management.Application.Models.ViewModels;
 using Medical.Management.Application.Services.Interfaces;
+using Medical.Management.Domain.Exceptions;
 using Medical.Management.Domain.Repositories;
 using Smart.Essentials.Core.ResultDataModel;
 
 namespace Medical.Management.Application.Services.Implementations
 {
-    public class HealthInsuranceService(IHealthInsuranceRepository repository, IMapper mapper, ResultModel resultModel) : IHealthInsuranceService
+    public class HealthInsuranceService(IHealthInsuranceRepository repository, IMapper mapper, NotificationContext notification) : IHealthInsuranceService
     {
         private readonly IHealthInsuranceRepository _repository = repository;
         private readonly IMapper _mapper = mapper;
-        private readonly ResultModel _resultModel = resultModel;
+        private NotificationContext _notificationContext = notification;
 
-        public async Task<ResultModel> AddAsync(HealthInsuranceInputModel model)
+        public async Task<HealthInsuranceViewModel> AddAsync(HealthInsuranceInputModel model)
         {
             var healthInsurance = await _repository.AddAsync(model.ToEntity());
 
-            _resultModel.AddResult(_mapper.Map<HealthInsuranceViewModel>(healthInsurance));
-
-            return _resultModel;
+            return _mapper.Map<HealthInsuranceViewModel>(healthInsurance);
         }
 
-        public async Task<ResultModel> GetAsync(Guid id)
+        public async Task<HealthInsuranceViewModel> GetAsync(Guid id)
         {
             var healthInsurance = await _repository.GetAsync(id)
                 ?? throw new HealthInsuranceNotFoundException();
 
-            _resultModel.AddResult(_mapper.Map<HealthInsuranceViewModel>(healthInsurance));
-
-            return _resultModel;
+            return _mapper.Map<HealthInsuranceViewModel>(healthInsurance);
         }
 
-        public ResultModel GetAll()
+        public IList<HealthInsuranceViewModel> GetAll()
         {
-            var list = _repository.GetAll().Select(HealthInsuranceViewModel.FromEntity).ToList();
-
-            _resultModel.AddResult(list);
-
-            return _resultModel;
+            return _repository.GetAll().Select(HealthInsuranceViewModel.FromEntity).ToList();
         }
 
         public async Task UpdateAsync(HealthInsuranceInputModel model, Guid id)

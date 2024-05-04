@@ -2,6 +2,7 @@
 using Medical.Management.Application.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Smart.Essentials.Core.ResultDataModel;
 
 namespace Medical.Management.Api.Controllers.V1
 {
@@ -15,34 +16,33 @@ namespace Medical.Management.Api.Controllers.V1
         [HttpPost]
         public async Task<IActionResult> PostAsync(HealthInsuranceInputModel model)
         {
-            return Ok(await _service.AddAsync(model));
+            return Ok(ResultModel.WithSuccessfully((await _service.AddAsync(model))));
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetAsync(Guid id)
         {
-            return Ok(await _service.GetAsync(id));
+            return Ok(ResultModel.WithSuccessfully(await _service.GetAsync(id)));
         }
 
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(_service.GetAll());
+            return Ok(ResultModel.WithSuccessfully(_service.GetAll()));
         }
-
 
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(Guid id, HealthInsuranceInputModel model)
         {
             await _service.UpdateAsync(model, id);
-            return NoContent();
+            return Ok(ResultModel.WithSuccessfully());
         }
 
         [HttpDelete("{id}")]
         public IActionResult Delete(Guid id)
         {
             _service.Remove(id);
-            return NoContent();
+            return Ok(ResultModel.WithSuccessfully());
         }
     }
 }

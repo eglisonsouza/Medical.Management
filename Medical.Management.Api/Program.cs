@@ -10,8 +10,8 @@ builder.Services
     .AddApplication();
 builder.Services.AddControllers(options =>
 {
-    //options.Filters.Add(typeof(DefaultExceptionFilterAttribute));
-    //options.Filters.Add(typeof(ValidationFilter));
+    options.Filters.Add(typeof(DefaultExceptionFilterAttribute));
+    options.Filters.Add(typeof(ValidationFilter));
     options.Filters.Add(typeof(NotificationFilter));
 });
 builder.Services.AddEndpointsApiExplorer();

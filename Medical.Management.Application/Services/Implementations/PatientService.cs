@@ -1,21 +1,23 @@
-﻿using Medical.Management.Application.Models.InputModels;
+﻿using AutoMapper;
+using Medical.Management.Application.Models.InputModels;
 using Medical.Management.Application.Models.ViewModels;
 using Medical.Management.Application.Services.Interfaces;
+using Medical.Management.Domain.Exceptions;
+using Medical.Management.Domain.Models.Entities;
 using Medical.Management.Domain.Repositories;
 
 namespace Medical.Management.Application.Services.Implementations
 {
-    public class PatientService(IPatientRepository repository) : IPatientService
+    public class PatientService(IPatientRepository repository, IMapper mapper) : IPatientService
     {
         private readonly IPatientRepository _repository = repository;
+        private readonly IMapper _mapper = mapper;
 
         public async Task<PatientViewModel> AddAsync(PatientInputModel model)
         {
-            //var people = await _repository.AddAsync(model.People.ToEntity());
-            //var patient = await _repository.AddAsync(model.ToEntity(people.Id));
-            await _repository.SaveAsync();
-            throw new NotImplementedException();
-            //return PatientViewModel.FromEntity(patient);
+            var patient = await _repository.AddAsync(_mapper.Map<Patient>(model));
+
+            return _mapper.Map<PatientViewModel>(patient);
         }
 
         public async Task<PatientViewModel> GetAsync(Guid id)
@@ -23,7 +25,7 @@ namespace Medical.Management.Application.Services.Implementations
             var patient = await _repository.GetAsync(id)
                 ?? throw new PatientNotFoundException();
 
-            return PatientViewModel.FromEntity(patient);
+            return _mapper.Map<PatientViewModel>(patient);
         }
 
         public async Task UpdateAsync(PatientInputModel model, Guid id)

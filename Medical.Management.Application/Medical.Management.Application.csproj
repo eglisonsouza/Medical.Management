@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Building Blocks\Smart.Essentials.Core.ResultDataModel\Smart.Essentials.Core.ResultDataModel.csproj" />
     <ProjectReference Include="..\Medical.Management.Infra\Medical.Management.Infra.csproj" />
   </ItemGroup>
 

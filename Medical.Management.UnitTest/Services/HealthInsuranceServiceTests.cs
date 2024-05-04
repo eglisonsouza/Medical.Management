@@ -1,7 +1,7 @@
 ﻿using Medical.Management.Application.Models.ViewModels;
 using Medical.Management.Application.Services.Implementations;
+using Medical.Management.Domain.Exceptions;
 using Medical.Management.Domain.Models.Entities;
-using Medical.Management.Domain.Models.Exceptions;
 using Medical.Management.Domain.Repositories;
 using Medical.Management.UnitTest.Mocks;
 using NSubstitute;

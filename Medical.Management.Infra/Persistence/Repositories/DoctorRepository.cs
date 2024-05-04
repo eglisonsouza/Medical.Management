@@ -39,6 +39,11 @@ namespace Medical.Management.Infra.Persistence.Repositories
             await UpdateAsync(entity.People);
         }
 
+        public bool CpfIsExist(string cpf)
+        {
+            return _dbContext.Peoples.Any(x => x.Cpf.Equals(cpf));
+        }
+
         public Task SaveAsync()
         {
             return _dbContext.SaveChangesAsync();

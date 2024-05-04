@@ -1,4 +1,4 @@
-﻿namespace Medical.Management.Domain.Models.Exceptions
+﻿namespace Medical.Management.Domain.Exceptions
 {
     public class PatientNotFoundException() : Exception("Patient not found.")
     {

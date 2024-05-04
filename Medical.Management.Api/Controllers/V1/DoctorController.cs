@@ -27,8 +27,7 @@ namespace Medical.Management.Api.Controllers.V1
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAsync(Guid id, DoctorInputModel model)
         {
-            await _service.UpdateAsync(model, id);
-            return NoContent();
+            return Ok(await _service.UpdateAsync(model, id));
         }
     }
 }

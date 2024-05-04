@@ -1,12 +1,12 @@
 ﻿using Medical.Management.Application.Models.InputModels;
-using Medical.Management.Application.Models.ViewModels;
+using Smart.Essentials.Core.ResultDataModel;
 
 namespace Medical.Management.Application.Services.Interfaces
 {
     public interface IDoctorService
     {
-        Task<DoctorViewModel> AddAsync(DoctorInputModel model);
-        Task<DoctorViewModel> GetAsync(Guid id);
-        Task UpdateAsync(DoctorInputModel model, Guid id);
+        Task<ResultModel> AddAsync(DoctorInputModel model);
+        Task<ResultModel> GetAsync(Guid id);
+        Task<ResultModel> UpdateAsync(DoctorInputModel model, Guid id);
     }
 }

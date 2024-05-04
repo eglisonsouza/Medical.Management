@@ -8,6 +8,7 @@ namespace Medical.Management.Domain.Repositories
         Task<Doctor> AddAsync(Doctor entity);
         Task<Doctor?> GetAsync(Guid id);
         Task UpdateAsync(Doctor entity);
+        bool CpfIsExist(string cpf);
         Task SaveAsync();
     }
 }

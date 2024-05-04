@@ -2,6 +2,7 @@
 using Medical.Management.Application.Services.Implementations;
 using Medical.Management.Application.Services.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
+using Smart.Essentials.Core.ResultDataModel;
 
 namespace Medical.Management.Application.Extensions
 {
@@ -11,6 +12,7 @@ namespace Medical.Management.Application.Extensions
         {
             services.AddMapping();
 
+            services.AddScoped<ResultModel>();
             services.AddScoped<IDoctorService, DoctorService>();
             services.AddScoped<IPatientService, PatientService>();
             services.AddScoped<IProceduralMedicalService, ProceduralMedicalService>();
@@ -25,6 +27,7 @@ namespace Medical.Management.Application.Extensions
             {
                 cfg.AddProfile<DoctorMapping>();
                 cfg.AddProfile<PeopleMapping>();
+                cfg.AddProfile<HealthInsuranceMapping>();
             });
         }
     }

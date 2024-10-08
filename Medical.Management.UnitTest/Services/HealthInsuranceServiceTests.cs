@@ -1,4 +1,5 @@
-﻿using Medical.Management.Application.Models.ViewModels;
+﻿using AutoMapper;
+using Medical.Management.Application.Models.ViewModels;
 using Medical.Management.Application.Services.Implementations;
 using Medical.Management.Domain.Exceptions;
 using Medical.Management.Domain.Models.Entities;
@@ -6,6 +7,7 @@ using Medical.Management.Domain.Repositories;
 using Medical.Management.UnitTest.Mocks;
 using NSubstitute;
 using NSubstitute.ReturnsExtensions;
+using Smart.Essentials.Core.ResultDataModel;
 
 namespace Medical.Management.UnitTest.Services
 {
@@ -13,11 +15,16 @@ namespace Medical.Management.UnitTest.Services
     {
         private readonly IHealthInsuranceRepository _repository;
         private readonly HealthInsuranceService _service;
+        private readonly IMapper _mapper;
+        private readonly NotificationContext _notificationContext;
 
         public HealthInsuranceServiceTests()
         {
             _repository = Substitute.For<IHealthInsuranceRepository>();
-            _service = new HealthInsuranceService(_repository);
+            _mapper = Substitute.For<IMapper>();
+            _notificationContext = new NotificationContext();
+
+            _service = new HealthInsuranceService(_repository, _mapper, _notificationContext);
         }
 
         [Fact]
@@ -100,8 +107,6 @@ namespace Medical.Management.UnitTest.Services
             // Act
             await Assert.ThrowsAsync<HealthInsuranceNotFoundException>(async () => await _service.UpdateAsync(HealthInsuranceMocks.GetHealthInsuranceInputModel(), Guid.NewGuid()));
         }
-
-
 
         [Fact]
         public void Remove_ShouldNotThrowException_WhenRemoveIdIsProvided()

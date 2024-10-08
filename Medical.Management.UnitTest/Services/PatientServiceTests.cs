@@ -1,4 +1,5 @@
-﻿using Medical.Management.Application.Models.ViewModels;
+﻿using AutoMapper;
+using Medical.Management.Application.Models.ViewModels;
 using Medical.Management.Application.Services.Implementations;
 using Medical.Management.Domain.Exceptions;
 using Medical.Management.Domain.Models.Entities;
@@ -6,6 +7,7 @@ using Medical.Management.Domain.Repositories;
 using Medical.Management.UnitTest.Mocks;
 using NSubstitute;
 using NSubstitute.ReturnsExtensions;
+using Smart.Essentials.Core.ResultDataModel;
 
 namespace Medical.Management.UnitTest.Services
 {
@@ -13,18 +15,20 @@ namespace Medical.Management.UnitTest.Services
     {
         private readonly IPatientRepository _repository;
         private readonly PatientService _service;
+        private readonly IMapper _mapper;
 
         public PatientServiceTests()
         {
             _repository = Substitute.For<IPatientRepository>();
-            _service = new PatientService(_repository);
+            _mapper = Substitute.For<IMapper>();
+
+            _service = new PatientService(_repository, _mapper);
         }
 
         [Fact]
         public async Task AddAsync_ShouldReturnPatientViewModel_WhenValidModelIsProvided()
         {
             // Arrange
-            _repository.AddAsync(Arg.Any<People>()).Returns(PeopleMocks.GetPeopleEntity());
             _repository.AddAsync(Arg.Any<Patient>()).Returns(PatientMocks.GetPatientEntity());
 
             // Act

@@ -7,6 +7,7 @@ using Medical.Management.Domain.Repositories;
 using Medical.Management.UnitTest.Mocks;
 using NSubstitute;
 using NSubstitute.ReturnsExtensions;
+using Smart.Essentials.Core.ResultDataModel;
 
 namespace Medical.Management.UnitTests.Services
 {
@@ -15,29 +16,49 @@ namespace Medical.Management.UnitTests.Services
         private readonly IDoctorRepository _repository;
         private readonly DoctorService _service;
         private readonly IMapper _mapper;
+        private readonly NotificationContext _notificationContext;
 
         public DoctorServiceTests()
         {
             _repository = Substitute.For<IDoctorRepository>();
             _mapper = Substitute.For<IMapper>();
-            _service = new DoctorService(_repository, _mapper);
+            _notificationContext = new NotificationContext();
+            _service = new DoctorService(_repository, _mapper, _notificationContext);
         }
 
         [Fact]
         public async Task AddAsync_ShouldReturnDoctorViewModel_WhenValidModelIsProvided()
         {
             // Arrange
-            _repository.AddAsync(Arg.Any<People>()).Returns(PeopleMocks.GetPeopleEntity());
             _repository.AddAsync(Arg.Any<Doctor>()).Returns(DoctorMocks.GetDoctorEntity());
+            _mapper.Map<DoctorViewModel>(Arg.Any<Doctor>()).Returns(DoctorMocks.GetDoctorViewModel());
 
             // Act
-            var result = await _service.AddAsync(DoctorMocks.GetDoctorInputModel());
+            var result = await _service.AddAsync(DoctorMocks.GetDoctorValidInputModel());
 
             // Assert
+            _repository.Received(1).CpfIsExist(Arg.Any<string>());
+            await _repository.Received(1).AddAsync(Arg.Any<Doctor>());
             Assert.NotNull(result);
             Assert.IsType<DoctorViewModel>(result);
-            await _repository.Received(1).AddAsync(Arg.Any<People>());
+            Assert.Empty(_notificationContext.Errors);
+        }
+
+        [Fact]
+        public async Task AddAsync_ShouldReturnDoctorViewModel_WhenInvalidModelIsProvided()
+        {
+            // Arrange
+            _repository.AddAsync(Arg.Any<Doctor>()).Returns(DoctorMocks.GetDoctorEntity());
+            _mapper.Map<DoctorViewModel>(Arg.Any<Doctor>()).Returns(DoctorMocks.GetDoctorViewModel());
+
+            // Act
+            var result = await _service.AddAsync(DoctorMocks.GetDoctorInvalidInputModel());
+
+            // Assert
+            _repository.Received(1).CpfIsExist(Arg.Any<string>());
             await _repository.Received(1).AddAsync(Arg.Any<Doctor>());
+            Assert.Null(result);
+            Assert.Empty(_notificationContext.Errors);
         }
 
         [Fact]
@@ -51,9 +72,10 @@ namespace Medical.Management.UnitTests.Services
             var result = await _service.GetAsync(id);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.IsType<DoctorViewModel>(result);
+            _repository.Received(1).CpfIsExist(Arg.Any<string>());
             await _repository.Received(1).GetAsync(Arg.Any<Guid>());
+            Assert.Null(result);
+            Assert.NotEmpty(_notificationContext.Errors);
         }
 
         [Fact]
@@ -64,7 +86,7 @@ namespace Medical.Management.UnitTests.Services
             _repository.GetAsync(id).Returns(DoctorMocks.GetDoctorEntity());
 
             // Act
-            await _service.UpdateAsync(DoctorMocks.GetDoctorInputModel(), id);
+            await _service.UpdateAsync(DoctorMocks.GetDoctorValidInputModel(), id);
 
             // Assert
             await _repository.Received(1).GetAsync(Arg.Any<Guid>());
@@ -79,7 +101,7 @@ namespace Medical.Management.UnitTests.Services
             _repository.GetAsync(id).ReturnsNull();
 
             // Act
-            await Assert.ThrowsAsync<DoctorNotFoundException>(async () => await _service.UpdateAsync(DoctorMocks.GetDoctorInputModel(), id));
+            await Assert.ThrowsAsync<DoctorNotFoundException>(async () => await _service.UpdateAsync(DoctorMocks.GetDoctorValidInputModel(), id));
         }
     }
 }
